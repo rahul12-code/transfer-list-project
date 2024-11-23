@@ -1,5 +1,4 @@
 
-
 let btn1 = document.querySelector("#button1");
 let btn2 = document.querySelector("#button2");
 let btn3 = document.querySelector("#button3");
@@ -10,6 +9,23 @@ const frameworksContainer = document.querySelector(".frameworks");
 
 
 const updateButtonColors = () => {
+
+    if(frameworksContainer.children.length===0){
+        btn1.style.color = "gray";
+        btn1.style.borderColor = "gray";
+    }else{
+        btn1.style.color = "black";
+        btn1.style.borderColor = "black";
+    }
+
+    if(languagesContainer.children.length===0){
+        btn4.style.color = "gray";
+        btn4.style.borderColor = "gray";
+    }else{
+        btn4.style.color = "black";
+        btn4.style.borderColor = "black";
+    }
+
     const languagesChecked = languagesContainer.querySelector('input[type="checkbox"]:checked');
     const frameworksChecked = frameworksContainer.querySelector('input[type="checkbox"]:checked');
   
@@ -19,6 +35,7 @@ const updateButtonColors = () => {
     btn2.style.borderColor = frameworksChecked ? "black" : "gray";
 };
 
+
 const attachCheckboxListeners = (container) => {
     const checkboxes = container.querySelectorAll('input[type="checkbox"]');
     checkboxes.forEach((checkbox) => {
@@ -26,7 +43,10 @@ const attachCheckboxListeners = (container) => {
     });
 };
 
+
+//To Move all the Items 
 const moveAllItems = (fromContainer, toContainer, disableBtn, enableBtn) => {
+
     const children = fromContainer.children;
     const childrenArray = Array.from(children);
 
@@ -37,14 +57,12 @@ const moveAllItems = (fromContainer, toContainer, disableBtn, enableBtn) => {
         toContainer.append(child)
     });
 
-    disableBtn.style.color = "gray";
-    disableBtn.style.borderColor='gray';
-    enableBtn.style.color = "black"
-    enableBtn.style.borderColor="black"
-
     updateButtonColors(); // Recheck colors after move
+    
 };
 
+
+//To Move the selected Items
 const moveSelectedItems = (fromContainer, toContainer) => {
     const checkedItems = fromContainer.querySelectorAll('input[type="checkbox"]:checked');
     console.log(checkedItems);
@@ -62,6 +80,8 @@ const moveSelectedItems = (fromContainer, toContainer) => {
 // Attach initial checkbox listeners
 attachCheckboxListeners(languagesContainer);
 attachCheckboxListeners(frameworksContainer);
+
+updateButtonColors();
 
 btn1.onclick = () => {
     moveAllItems(frameworksContainer, languagesContainer, btn1, btn4)
